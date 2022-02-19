@@ -1,8 +1,8 @@
 import axios from 'axios'
 const axiosInstance = axios.create({
     headers: {
-      "Access-Control-Allow-Origin": "*"
-    },
+        "Access-Control-Allow-Origin": "*"
+      },
   });
 export default{
     namespaced: true,
@@ -50,7 +50,6 @@ export default{
            );
         }
     },
-    modules: {},
     getters: {
         getAllNovelas: state => state.novelas,
     }

@@ -3,6 +3,7 @@
     <div class="card-body">
       <div class="card-title">
         <h3>Chat Group</h3>
+        {{messages}}
         <hr />
       </div>
       <v-card class="overflow-y-auto" max-height="600" id="mensajes">
@@ -48,7 +49,6 @@
               label="Mensaje"
               class="form-control"
               v-model="message"
-              :prepend-icon="icon"
               filled
               clear-icon="mdi-close-circle"
             ></v-text-field>
@@ -68,34 +68,29 @@
                 user: '',
                 message: '',
                 messages: [],
-                socket : io("http://10.168.241.38:3001", {transports: ['websocket']})
+                socket : io("http://localhost:3001", {transports: ['websocket']})
         }),
         methods: {
             sendMessage(e) {
                 e.preventDefault();
                 if(this.message!=''){
                     this.socket.emit('SEND_MESSAGE', {
-                    user: this.user,
-                    message: this.message
+                      user: this.user,
+                      message: this.message
                     });
                     this.message = ''
                     this.scrollDown();
                 }
             },
             scrollDown(){
-                var container = document.querySelector("#mensajes");
-                var scrollHeight = container.scrollHeight;
+                const container = document.querySelector("#mensajes");
+                const scrollHeight = container.scrollHeight;
                 container.scrollTop = scrollHeight;
             },
-            playSound () {
-              var audio = new Audio("https://soundbible.com/mp3/Joke%20Sting-SoundBible.com-1968971319.mp3");
-              audio.play();
-            }
         },
         mounted() {
             this.socket.on('MESSAGE', (data) => {
                 this.messages= data
-                this.playSound()
             });
             this.scrollDown()
         },

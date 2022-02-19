@@ -5,7 +5,6 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import Axios from 'axios'
-
 Vue.prototype.$http = Axios.create({
   baseURL: 'localhost:3000',
     timeout: 100000,
